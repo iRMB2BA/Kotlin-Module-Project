@@ -2,13 +2,13 @@ import java.util.Scanner
 
 open class Page(open var name: String) {
 
-    open fun create() {}
+    open fun create(scanner: Scanner) {}
 
-    open fun showList() {}
+    open fun showList(scanner: Scanner) {}
 
 
     fun checkEmpty(text: String): Boolean {
-        return if (text.isEmpty()) {
+        return if (text.isBlank()) {
             println("Это поле не может быть пустым.")
             true
         } else {
@@ -46,6 +46,7 @@ open class Page(open var name: String) {
     else "В предыдущее меню"
 
     fun navigate(
+        scanner: Scanner,
         list: MutableList<out Page>,
     ) {
 
@@ -60,7 +61,6 @@ open class Page(open var name: String) {
             println("${lastPointOfMenu}. $toExit")
 
             var input: Int
-            val scanner = Scanner(System.`in`)
             if (scanner.hasNextInt()) {
                 input = scanner.nextInt()
                 if ((input > lastPointOfMenu) || (input < 0)) {
@@ -69,13 +69,14 @@ open class Page(open var name: String) {
                 }
             } else {
                 println("Введите цифру согласно пунктам меню.")
+                scanner.nextLine()
                 continue
             }
 
             when (input) {
                 lastPointOfMenu -> break
-                0 -> this.create()
-                else -> list[input - 1].showList()
+                0 -> this.create(scanner)
+                else -> list[input - 1].showList(scanner)
             }
 
         }

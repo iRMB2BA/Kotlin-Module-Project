@@ -2,17 +2,18 @@ import java.util.Scanner
 
 class Archive(name: String) : Page(name) {
     private val list: MutableList<Note> = mutableListOf()
-    override fun showList() {
-        navigate(list)
+    override fun showList(scanner: Scanner) {
+        navigate(scanner, list)
     }
 
-    override fun create() {
+    override fun create(scanner: Scanner) {
         var noteName: String
         var content: String
 
         while (true) {
             println("Введите название заметки:")
-            noteName = Scanner(System.`in`).nextLine()
+            scanner.nextLine()
+            noteName = scanner.nextLine()
             if (checkEmpty(noteName)) {
                 continue
             } else {
@@ -20,9 +21,10 @@ class Archive(name: String) : Page(name) {
             }
         }
 
+
         while (true) {
             println("Введите содержание заметки:")
-            content = Scanner(System.`in`).nextLine()
+            content = scanner.nextLine()
             if (checkEmpty(content)) {
                 continue
             } else {

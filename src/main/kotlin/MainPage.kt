@@ -2,15 +2,16 @@ import java.util.Scanner
 
 class MainPage(name: String) : Page(name) {
     private val list: MutableList<Archive> = mutableListOf()
-    override fun showList() {
-        navigate(list)
+    override fun showList(scanner: Scanner) {
+        navigate(scanner, list)
     }
 
-    override fun create() {
+    override fun create(scanner: Scanner) {
         var archiveName: String
         while (true) {
             println("Введите название нового архива:")
-            archiveName = Scanner(System.`in`).nextLine()
+            scanner.nextLine()
+            archiveName = scanner.nextLine()
             if (checkEmpty(archiveName)) {
                 continue
             } else {
@@ -19,5 +20,4 @@ class MainPage(name: String) : Page(name) {
         }
         list.add(Archive(archiveName))
     }
-
 }
